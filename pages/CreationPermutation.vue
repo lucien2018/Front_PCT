@@ -28,8 +28,11 @@
         <div class="col-md-8 permu">
             <form class="mt-5 form" method="post" @submit.prevent="creation" >
             <div>
-              <Notification v-if="error" :message="error" />
+              <Notification class="error" v-if="error" :message="error" />
+              <Notification class="color" v-if="succes" :message="succes" />
             </div>
+            <br>
+            <br>
               <div class="row">
                 <div class="col-md-6 form-group mb-5">
                 <label for="" class="col-form-label">Nom & Prénom</label>
@@ -109,6 +112,7 @@ components: {
       creationdiscipline:'',
       creationfonction:'',
       error: null,
+      succes: '',
 
     }
     },
@@ -127,9 +131,11 @@ components: {
           creationfonction: this.creationfonction,
 
         })
+        this.succes = 'votre demande a ete correctement enregistrée'
+        this.$router.go()
       } catch (e) {
        this.error = e.response.data.message
-
+       this.$router.go()
       }
     }
  }
@@ -137,6 +143,12 @@ components: {
 </script>
 
 <style scoped>
+.error{
+  color: red;
+}
+.color{
+  color: green;
+}
 .direction{
 font-size: 25px;
 color: white;

@@ -16,22 +16,27 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
 <br>
 <br>
   <div class="container" id="lien">
-    <div class="row">
+    <div class="row" >
       <div class="col-md-9 permuta">
         <h4 class="titre">LISTE DES AVIS DE PERMUTATIONS</h4>
        <div class="card">
        <hr>
-       <div class="row " v-for="avi in avis" :key="avi.id">
-            <div>
-                <p class="bg-light">Avis N° {{avi.id}}</p>
-            </div>
+       <hr>
+       <div class="row " v-for="annonce in annonces" :key="annonce.id">
+
           <div class="col-lg-12">
-                <p> je soussigné M.<span>{{avi.noms}}</span> enseignant en fonction a <span>{{avi.creationfonction}}</span> dans la discipline <span>{{avi.creationdiscipline}}</span>
-                de l'IEP: <span>{{avi.creationdirection}}</span>, souhaiterait permuter avec toute personne appartenant au corps enseignant et exercant la même fonction, de preference dans les localités de <span>{{avi.jeunefille}}</span>
-                Prière donc a toute personne interessée par cet avis de permutation de clicker sur le button je suis interessé. <br> <span class="nom">M. {{avi.noms}}</span> </p>
-           </div>
+          <p class="bg-light" >Avis N° {{annonce.id}}</p>
+                <p> je soussigné <span class="ecriture">M.{{annonce.noms}}</span> enseignant en fonction a <span class="ecriture">{{annonce.creationfonction}}</span> dans la discipline <span class="ecriture">{{annonce.creationdiscipline}}</span>
+                de l'IEP: <span class="ecriture">{{annonce.creationdirection}}</span>, souhaiterait permuter avec toute personne appartenant au corps enseignant et exercant la même fonction, de preference dans les localités de <span class="ecriture">{{annonce.jeunefille}}</span>.
+                Prière donc a toute personne interessée par cet avis de permutation de clicker sur le button je suis interessé. <br> <span class="nom ecriture">M. {{annonce.noms}}</span> </p>
+                <p class="bg-light1"><i>Fait, le <span class="ecriture">{{annonce.created_at}}</span></i></p>
+          </div>
           <button type="button" class="btn"  data-toggle="modal" data-target="#myModal">
-            <span class="bou">je suis interessé</span>
+            <span class="bou">je suis interesse</span>
+          </button>
+          <br>
+          <button v-if="seen" type="button" class="btn1" disabled="true">
+            <span class="bou">imprimer votre Demande</span>
           </button>
           <!-- Modal -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -44,8 +49,11 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
                 <div class="modal-body">
                       <form class="mt-5 form" method="post" @submit.prevent="intersse" >
                       <div>
-                        <Notification v-if="error" :message="error" />
+                        <Notification class="error" v-if="error" :message="error" />
+                        <Notification class="succes" v-if="succes" :message="succes" />
                       </div>
+                      <br>
+                      <br>
                       <div class="row">
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Nom & Prénom</label>
@@ -73,7 +81,7 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
                         </div>
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Direction régionale</label>
-                        <input v-model="direction" type="text" class="form-control contour"  required>
+                        <input v-model="direction" type="text" class="form-control contour"  required >
                         </div>
                       </div>
                       <div class="row">
@@ -102,16 +110,11 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
             </div>
           </div>
           <hr class="trait">
-          <div>
-            <p class="bg-light1">Fait, a Abidjan le {{avi.created_at}}</p>
-          </div>
         </div>
-
-
         <div class="pagination text-center">
           <a href="#">&laquo;</a>
-          <a href="#">1</a>
-          <a class="active" href="#">2</a>
+          <a class="active" href="#">1</a>
+          <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">&raquo;</a>
@@ -144,7 +147,6 @@ components: {
   data () {
     return {
 
-
       nom:'',
       nomdejeune:'',
       date:'',
@@ -154,25 +156,27 @@ components: {
       etablissement:'',
       discipline:'',
       fonction:'',
-      avis: null,
+      succes:'',
       error: null,
+      seen: false,
+      annonces: null
 
     }
     },
-     methods: {
-
-       mounted () {
+     mounted () {
        this.$axios
        .get('index')
        .then(
          response => {
-           this.avis = response.data.avis
+           this.annonces = response.data.annonces
          }
        ).catch(error =>{
          console.log(error)
        })
-        },
+      },
 
+
+     methods: {
     async intersse () {
       try {
          await this.$axios.post('index',  {
@@ -187,9 +191,10 @@ components: {
           fonction: this.fonction,
 
         })
+        this.succes ='votre demande a été enregistrée'
+        this.seen = true
       } catch (e) {
         this.error = e.response.data.message
-
       }
     }
  }
@@ -198,6 +203,18 @@ components: {
 </script>
 
 <style scoped>
+.error{
+  color: red;
+  font-size: 20px;
+}
+.succes{
+  color: green;
+  font-size: 20px;
+}
+.ecriture{
+  text-transform: uppercase;
+  font: bolder;
+}
 .bou{
   color: white;
   text-transform: uppercase;
@@ -211,7 +228,13 @@ font-family: 'Times New Roman', Times, serif;
  margin-left: auto;
  margin-right: auto;
  width: 100%;
-
+}
+.btn1{
+ background: rgb(8, 179, 22);
+ margin-left: auto;
+ margin-right: auto;
+ width: 100%;
+ margin-top: 5px;
 }
 .col-form-label{
 color: black;
@@ -261,8 +284,12 @@ text-decoration: underline rgb(54, 54, 54);
 .card{
 
  border-radius: 10px;
- padding: 3px 10px 10px 20px;
- overflow: scroll;
+ padding: 5px 15px 15px 25px;
+ overflow-x: scroll;
+overflow-y: scroll;
+width: auto;
+height: 500px;
+font-family: 'Times New Roman', Times, serif;
 }
 .permutat>.text{
 margin-top: 10px;
