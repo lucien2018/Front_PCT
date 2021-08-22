@@ -73,6 +73,16 @@
                 <input v-model="creationdiscipline" type="text" class="form-control contour uper" name="creationdiscipline"  required>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">Votre localité</label>
+                <input v-model="resident" type="text" class="form-control contour uper" name="resident" required>
+                </div>
+                <div class="col-md-6 form-group mb-5">
+                <label for="" class="col-form-label">Localité souhaitée</label>
+                <input v-model="souhait" type="text" class="form-control contour uper" name="souhait"  required>
+                </div>
+              </div>
               <div class=" form-group mb-5">
                 <label for="" class="col-form-label">Fonction exercée</label>
                 <input v-model="creationfonction" type="text" class="form-control contour uper" name="creationfonction" required>
@@ -111,6 +121,8 @@ components: {
       creationEtablissement:'',
       creationdiscipline:'',
       creationfonction:'',
+      resident:'',
+      souhait:'',
       error: null,
       succes: '',
 
@@ -129,6 +141,8 @@ components: {
           creationEtablissement: this.creationEtablissement,
           creationdiscipline: this.creationdiscipline,
           creationfonction: this.creationfonction,
+          resident:this.resident,
+          souhait: this.souhait,
 
         })
         this.succes = 'votre demande a ete correctement enregistrée'

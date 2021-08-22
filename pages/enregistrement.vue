@@ -61,6 +61,7 @@ text-transform: uppercase;
 import Notification from '~/components/Notification'
 
 export default {
+  loading: true,
   layout:'admin',
   components: {
     Notification,

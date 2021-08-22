@@ -25,6 +25,7 @@
 <script>
 import Notification from '~/components/Notification'
 export default {
+loading: true,
 layout:'admin',
 middleware: 'guest',
 components: {

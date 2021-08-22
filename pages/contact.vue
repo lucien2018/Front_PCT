@@ -82,7 +82,7 @@
 
 <script>
 export default {
-
+ loading: true,
 }
 </script>
 

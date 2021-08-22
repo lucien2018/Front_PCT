@@ -80,7 +80,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-
+loading: true,
 layout:'administration',
 middleware: 'auth',
 computed: {

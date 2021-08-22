@@ -26,18 +26,16 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
 
           <div class="col-lg-12">
           <p class="bg-light" >Avis N° {{annonce.id}}</p>
-                <p> je soussigné <span class="ecriture">M.{{annonce.noms}}</span> enseignant en fonction a <span class="ecriture">{{annonce.creationfonction}}</span> dans la discipline <span class="ecriture">{{annonce.creationdiscipline}}</span>
-                de l'IEP: <span class="ecriture">{{annonce.creationdirection}}</span>, souhaiterait permuter avec toute personne appartenant au corps enseignant et exercant la même fonction, de preference dans les localités de <span class="ecriture">{{annonce.jeunefille}}</span>.
-                Prière donc a toute personne interessée par cet avis de permutation de clicker sur le button je suis interessé. <br> <span class="nom ecriture">M. {{annonce.noms}}</span> </p>
+                <p> je soussigné <span class="ecriture">M/Mme/Mlle. {{annonce.noms}}</span> enseignant en fonction a <span class="ecriture">{{annonce.resident}}</span> dans la discipline <span class="ecriture">{{annonce.creationdiscipline}}</span>
+                de l'IEP: <span class="ecriture">{{annonce.creationdirection}}</span>, souhaiterait permuter avec toute personne appartenant au corps enseignant et exercant la même fonction, de preference dans la localité de <span class="ecriture">{{annonce.souhait}}</span>.
+                Prière donc a toute personne interessée par cet avis de permutation de clicker sur le button je suis interessé.<br>Merci d'avance <br> <span class="nom ecriture">M. {{annonce.noms}}</span> </p>
                 <p class="bg-light1"><i>Fait, le <span class="ecriture">{{annonce.created_at}}</span></i></p>
           </div>
           <button type="button" class="btn"  data-toggle="modal" data-target="#myModal">
             <span class="bou">je suis interesse</span>
           </button>
           <br>
-          <button v-if="seen" type="button" class="btn1" disabled="true">
-            <span class="bou">imprimer votre Demande</span>
-          </button>
+          <button  type="button" class="btn1"> <NuxtLink class="bou1" to="/impression">imprimer ma demande</NuxtLink></button>
           <!-- Modal -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -57,47 +55,53 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
                       <div class="row">
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Nom & Prénom</label>
-                        <input v-model="nom" type="text" class="form-control contour" name="name" required>
+                        <input v-model="nom" type="text" class="form-control contour uper" name="nom" required>
                         </div>
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Nom de jeune de fille</label>
-                        <input v-model="nomdejeune" type="text" class="form-control contour"  required>
+                        <input v-model="nomdejeune" type="text" class="form-control contour uper" name="nomdejeune" required>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Date de naissance</label>
-                        <input v-model="date" type="date" class="form-control contour"  required>
+                        <input v-model="date" type="date" class="form-control contour uper" name="date" required>
                         </div>
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Emploi</label>
-                        <input v-model="emploie" type="text" class="form-control contour"  required>
+                        <input v-model="emploie" type="text" class="form-control contour uper" name="emploie"  required>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Matricule</label>
-                        <input v-model="matricule" type="text" class="form-control contour"  required>
+                        <input v-model="matricule" type="text" class="form-control contour uper" name="matricule" required>
                         </div>
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Direction régionale</label>
-                        <input v-model="direction" type="text" class="form-control contour"  required >
+                        <input v-model="direction" type="text" class="form-control contour uper" name="direction" required >
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Etablissement ou service</label>
-                        <input v-model="etablissement" type="text" class="form-control contour" required>
+                        <input v-model="etablissement" type="text" class="form-control contour uper" name="etablissement" required>
                         </div>
                         <div class="col-md-6 form-group mb-5">
                         <label for="" class="col-form-label">Discipline enseignée</label>
-                        <input  v-model="discipline" type="text" class="form-control contour" required>
+                        <input  v-model="discipline" type="text" class="form-control contour uper" name="discipline" required>
                         </div>
                       </div>
-                      <div class=" form-group mb-5">
-                        <label for="" class="col-form-label">Fonction exercée</label>
-                        <input v-model="fonction" type="text" class="form-control contour" required>
+                      <div class="row">
+                        <div class="col-md-6 form-group mb-5">
+                          <label for="" class="col-form-label">Fonction exercée</label>
+                          <input v-model="fonction" type="text" class="form-control contour uper" name="fonction" required>
                         </div>
+                        <div class="col-md-6 form-group mb-5">
+                          <label for="" class="col-form-label">Numero de l'avis choisi</label>
+                          <input v-model="identifiant" type="number" class="form-control contour uper" name="identifiant" required>
+                        </div>
+                      </div>
                       <div class="row">
                         <div class="col-md-12 form-group titre">
                         <input type="submit" value="je suis interresé" class="btn btn-primary rounded-0 py-2 px-4">
@@ -113,11 +117,11 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
         </div>
         <div class="pagination text-center">
           <a href="#">&laquo;</a>
-          <a class="active" href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">&raquo;</a>
+          <a class="active" href="" >1</a>
+          <a href="">2</a>
+          <a href="">3</a>
+          <a href="">4</a>
+          <a href="">&raquo;</a>
         </div>
        </div>
       </div>
@@ -126,6 +130,7 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
        <p class="text"> Dans le soucis de gerer plus efficacement les demandes de Permutation, la Sous-Direction des ressources humaines en charge du personnel du préscolaire et du primaire
         du Ministère de l’Education Nationale (MEN), met a la disposition du
         personnel enseignant, cette platforme en ligne. vous trouverez ci-contre une liste de tous les avis de permutations de demandeurs partout en côte d'ivoire. le MEN expert ainsi par ce nouveau dispositif satisfaire tout son personnel.</p>
+        <p class="error"><i>NB: veuillez concerver bien au frais dans votre memoir le numero de votre avis afin d'imprimer votre demande personnalisée.</i></p>
       </div>
     </div>
 
@@ -140,13 +145,12 @@ PRÉSCOLAIRE ET DU PRIMAIRE</span> en ligne</p>
 <script>
 import Notification from '~/components/Notification'
 export default {
-
+loading: true,
 components: {
     Notification
   },
   data () {
     return {
-
       nom:'',
       nomdejeune:'',
       date:'',
@@ -156,6 +160,7 @@ components: {
       etablissement:'',
       discipline:'',
       fonction:'',
+      identifiant:'',
       succes:'',
       error: null,
       seen: false,
@@ -174,9 +179,7 @@ components: {
          console.log(error)
        })
       },
-
-
-     methods: {
+  methods: {
     async intersse () {
       try {
          await this.$axios.post('index',  {
@@ -189,10 +192,11 @@ components: {
           etablissement: this.etablissement,
           discipline: this.discipline,
           fonction: this.fonction,
+          identifiant: this.identifiant
 
         })
         this.succes ='votre demande a été enregistrée'
-        this.seen = true
+        this.$router.go()
       } catch (e) {
         this.error = e.response.data.message
       }
@@ -205,19 +209,30 @@ components: {
 <style scoped>
 .error{
   color: red;
-  font-size: 20px;
+  font-size: 18px;
+}
+.uper{
+text-transform: uppercase;
 }
 .succes{
   color: green;
-  font-size: 20px;
+  font-size: 18px;
 }
 .ecriture{
   text-transform: uppercase;
   font: bolder;
 }
+
 .bou{
   color: white;
   text-transform: uppercase;
+  text-decoration:none;
+}
+.bou1{
+  color: black;
+  text-transform: uppercase;
+  text-decoration:none;
+  font-size:16px;
 }
 .modal-title{
 color: black;
@@ -230,7 +245,7 @@ font-family: 'Times New Roman', Times, serif;
  width: 100%;
 }
 .btn1{
- background: rgb(8, 179, 22);
+ background: orange;
  margin-left: auto;
  margin-right: auto;
  width: 100%;
